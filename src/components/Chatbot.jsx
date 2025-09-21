@@ -49,35 +49,59 @@ const Chatbot = () => {
   const callGeminiApi = async (prompt) => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const systemPrompt = "You are a helpful AI assistant providing factual information about the Communist Party of Vietnam. Your purpose is to be an objective and reliable resource.";
-    const apiKey =  import.meta.env.VITE_GEMINI_API_KEY
+
+    const formatText = (text) => {
+      return text
+        // Xuống dòng trước mỗi số dạng 1. 2. 3.
+        .replace(/(\d+\.\s)/g, "\n$1")
+        // Xuống dòng trước nội dung giữa **...**
+        .replace(/\*\*(.*?)\*\*/g, "\n$1")
+        // Xuống dòng sau mỗi dấu chấm kết thúc câu
+        .replace(/\. /g, ".\n")
+        // Xóa các dấu * hoặc - thừa
+        .replace(/[*-]/g, "")
+        .trim();
+    };
+
+    const systemPrompt = `You are a helpful AI assistant providing factual information about the Communist Party of Vietnam.
+Please be objective and reliable.
+
+1. Provide accurate and concise information.
+2. Present information objectively, without bias.
+3. Use historical data and official sources.
+4. Keep the language clear and easy to understand.
+5. Answer briefly, accurately, and focus on the user's question.
+6. Do not use '*' or '**' for emphasis.
+7. Do not use '-' or '*' for bullet points. Instead, write complete sentences or use numbered lists (1., 2., 3.), with each item on a new line.`;
+
+
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
     const payload = {
-        contents: [{ parts: [{ text: prompt }] }],
-        systemInstruction: {
-            parts: [{ text: systemPrompt }]
-        },
+      contents: [{ parts: [{ text: prompt }] }],
+      systemInstruction: {
+        parts: [{ text: systemPrompt }]
+      },
     };
 
     const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
-        throw new Error(`API call failed with status: ${response.status}`);
+      throw new Error(`API call failed with status: ${response.status}`);
     }
 
     const result = await response.json();
     const candidate = result.candidates?.[0];
 
     if (candidate && candidate.content?.parts?.[0]?.text) {
-        return candidate.content.parts[0].text;
+      return formatText(candidate.content.parts[0].text);
     } else {
-        return "I'm sorry, I couldn't generate a response.";
+      return "I'm sorry, I couldn't generate a response.";
     }
   };
 
@@ -113,20 +137,22 @@ const Chatbot = () => {
             <div className="flex-1 p-4 overflow-y-auto space-y-4">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                 <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
-                    {msg.text}
+                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
+                    {msg.text.split('\n').map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
                   </div>
                 </div>
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                   <div className="bg-gray-700 text-white px-4 py-2 rounded-2xl">
-                     <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-75"></div>
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-150"></div>
-                     </div>
-                   </div>
+                  <div className="bg-gray-700 text-white px-4 py-2 rounded-2xl">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                      <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-75"></div>
+                      <div className="w-2 h-2 bg-white rounded-full animate-pulse delay-150"></div>
+                    </div>
+                  </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
