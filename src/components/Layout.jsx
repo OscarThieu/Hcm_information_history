@@ -9,7 +9,7 @@ import {
   NewspaperIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
-
+import { motion } from "framer-motion";
 import Chatbot from './Chatbot';
 
 const navItems = [
@@ -48,19 +48,25 @@ const Sidebar = () => (
 );
 
 const MobileNav = () => (
-  <nav className="fixed bottom-5 left-0 right-0 bg-brand-red-dark text-white flex justify-around items-center py-2 md:hidden z-50">
+  <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[85%] max-w-sm bg-gradient-to-r from-red-800 to-red-600 text-white flex justify-around items-center py-3 rounded-2xl shadow-lg backdrop-blur-md md:hidden z-50">
     {navItems.map(item => (
       <NavLink
         key={item.to}
         to={item.to}
-        className={({ isActive }) =>
-          `flex flex-col items-center justify-center gap-1 text-sm transition-colors
-           ${isActive
-            ? 'text-white'
-            : 'text-white/70 hover:text-white'}`
-        }
+        className="flex items-center justify-center relative"
       >
-        <item.icon className="h-6 w-6" />
+        {({ isActive }) => (
+          <motion.div
+            className="p-2 rounded-full flex items-center justify-center"
+            animate={{
+              backgroundColor: isActive ? "rgba(255,255,255,0.2)" : "transparent",
+              scale: isActive ? 1.2 : 1
+            }}
+            transition={{ duration: 0.25 }}
+          >
+            <item.icon className={`h-6 w-6 ${isActive ? "text-white" : "text-white/70"}`} />
+          </motion.div>
+        )}
       </NavLink>
     ))}
   </nav>

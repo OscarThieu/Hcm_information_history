@@ -108,7 +108,7 @@ Please be objective and reliable.
   return (
     <>
       {/* Chat Bubble Toggle Button */}
-      <div className="fixed bottom-18 right-9 z-50">
+      <div className="fixed bottom-6 right-9 z-50">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
