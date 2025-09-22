@@ -48,7 +48,7 @@ const Sidebar = () => (
 );
 
 const MobileNav = () => (
-  <nav className="fixed bottom-0 left-0 right-0 bg-brand-red-dark text-white flex justify-around items-center py-2 md:hidden z-50">
+  <nav className="fixed bottom-5 left-0 right-0 bg-brand-red-dark text-white flex justify-around items-center py-2 md:hidden z-50">
     {navItems.map(item => (
       <NavLink
         key={item.to}

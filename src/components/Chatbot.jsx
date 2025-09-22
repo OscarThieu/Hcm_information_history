@@ -108,7 +108,7 @@ Please be objective and reliable.
   return (
     <>
       {/* Chat Bubble Toggle Button */}
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-18 right-9 z-50">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -126,7 +126,7 @@ Please be objective and reliable.
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-24 right-8 w-96 h-[600px] bg-gray-800/90 backdrop-blur-md rounded-lg shadow-2xl flex flex-col z-40 border border-white/10"
+            className="fixed bottom-35 right-20 w-96 h-[600px] bg-gray-800 backdrop-blur-md rounded-lg shadow-2xl flex flex-col z-40 border border-white/10"
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10 text-center">
