@@ -137,7 +137,7 @@ Please be objective and reliable.
             <div className="flex-1 p-4 overflow-y-auto space-y-4">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
+                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${msg.role === 'user' ? 'bg-blue-800 text-white' : 'bg-gray-700 text-white'}`}>
                     {msg.text.split('\n').map((line, i) => (
                       <p key={i}>{line}</p>
                     ))}
