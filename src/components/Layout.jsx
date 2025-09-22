@@ -48,29 +48,24 @@ const Sidebar = () => (
 );
 
 const MobileNav = () => (
-  <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[85%] max-w-sm bg-gradient-to-r from-red-800 to-red-600 text-white flex justify-around items-center py-3 rounded-2xl shadow-lg backdrop-blur-md md:hidden z-50">
+  <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-brand-red-dark/90 backdrop-blur-md text-white flex justify-around items-center py-3 md:hidden z-50 rounded-2xl shadow-lg border border-white/10">
     {navItems.map(item => (
       <NavLink
         key={item.to}
         to={item.to}
-        className="flex items-center justify-center relative"
+        className={({ isActive }) =>
+          `flex items-center justify-center p-2 rounded-full transition-all duration-200
+           ${isActive
+            ? 'bg-white/20 text-yellow-300 scale-110'
+            : 'text-white/70 hover:text-white hover:bg-white/10'}`
+        }
       >
-        {({ isActive }) => (
-          <motion.div
-            className="p-2 rounded-full flex items-center justify-center"
-            animate={{
-              backgroundColor: isActive ? "rgba(255,255,255,0.2)" : "transparent",
-              scale: isActive ? 1.2 : 1
-            }}
-            transition={{ duration: 0.25 }}
-          >
-            <item.icon className={`h-6 w-6 ${isActive ? "text-white" : "text-white/70"}`} />
-          </motion.div>
-        )}
+        <item.icon className="h-6 w-6" />
       </NavLink>
     ))}
   </nav>
 );
+
 
 export const Layout = () => {
   return (
