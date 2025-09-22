@@ -46,7 +46,7 @@ export function ApplicationSection() {
 
   return (
     <motion.section
-      className="py-16 px-6 bg-gray-900 text-gray-100"
+      className="py-16 px-6 bg-gradient-to-br from-brand-red-dark to-gray-900 text-gray-100"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}

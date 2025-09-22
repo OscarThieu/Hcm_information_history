@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export function ConclusionSection() {
   return (
     <motion.section
-      className="min-h-screen relative py-20 px-6 bg-gradient-to-br from-red-700 via-red-500 to-yellow-100 text-gray-800"
+      className="min-h-screen relative py-20 px-6bg-gradient-to-br from-brand-red-dark to-gray-900 text-gray-800"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -21,9 +21,9 @@ export function ConclusionSection() {
         </h2>
 
         <p className="text-lg md:text-xl leading-relaxed mb-6">
-          Tư tưởng Hồ Chí Minh về Đảng vẫn mang giá trị thời sự sâu sắc.  
+          Tư tưởng Hồ Chí Minh về Đảng vẫn mang giá trị thời sự sâu sắc.
           Đảng vừa giữ vai trò lãnh đạo, vừa phải đổi mới, tự chỉnh đốn để xứng đáng là{" "}
-          <strong>“đạo đức, là văn minh”</strong>.  
+          <strong>“đạo đức, là văn minh”</strong>.
         </p>
 
         {/* Bullet points */}

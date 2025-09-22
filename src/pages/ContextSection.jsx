@@ -40,7 +40,7 @@ export function ContextSection() {
 
   return (
     <motion.section
-      className=" min-h-screen py-20 px-6 bg-gray-900 text-beige"
+      className=" min-h-screen py-20 px-6 bg-gradient-to-br from-brand-red-dark to-gray-900  text-beige"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}

@@ -43,28 +43,38 @@ export function TimelineSection() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
     return (
-        <div className="relative bg-gradient-to-b from-red-900 via-red-700 to-red-200 py-24 overflow-visible">
+        <div className="relative bg-gradient-to-b from-brand-red-dark to-gray-900 py-65 overflow-visible">
             {/* SVG background shapes */}
             <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <circle cx="20%" cy="10%" r="80" fill="rgba(255, 215, 0, 0.2)" /> {/* vàng đồng */}
+                <circle cx="20%" cy="10%" r="80" fill="rgba(255, 215, 0, 0.2)" />
                 <circle cx="80%" cy="90%" r="100" fill="rgba(255, 215, 0, 0.15)" />
                 <circle cx="50%" cy="50%" r="150" fill="rgba(255, 215, 0, 0.1)" />
             </svg>
 
-            <section className="relative max-w-7xl mx-auto z-10">
-                {/* Center gradient line */}
-                <div className="absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-red-800 to-yellow-600 -translate-x-1/2"></div>
+            <div className="text-center -mt-40 mb-16 relative z-10">
+                <h1 className="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg">
+                    Dòng Thời Gian Lịch Sử Đảng CSVN
+                </h1>
+                <p className="mt-1 text-white/80 text-sm md:text-base">
+                    Những dấu mốc quan trọng trong lịch sử vẻ vang
+                </p>
+            </div>
 
-                <div className="relative flex flex-col space-y-32">
+
+            <section className="relative max-w-7xl mx-auto z-10 px-4">
+                {/* Center gradient line only on desktop */}
+                <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-red-800 to-yellow-600 -translate-x-1/2"></div>
+
+                <div className="relative flex flex-col space-y-16 md:space-y-32">
                     {timelineData.map((item, index) => {
                         const isLeft = index % 2 === 0;
                         return (
                             <div key={index} className="relative flex w-full items-center">
                                 {/* Marker */}
-                                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-500 rounded-full z-20"></span>
+                                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-500 rounded-full z-20 hidden md:block"></span>
 
                                 <motion.div
-                                    className={`relative cursor-pointer md:w-5/12 w-11/12 ${isLeft ? "ml-auto" : "mr-auto"
+                                    className={`relative cursor-pointer md:w-5/12 w-full ${isLeft ? "ml-auto md:mr-16" : "mr-auto md:ml-16"
                                         } rounded-2xl overflow-visible shadow-xl`}
                                     onHoverStart={() => setHoveredIndex(index)}
                                     onHoverEnd={() => setHoveredIndex(null)}
@@ -78,13 +88,13 @@ export function TimelineSection() {
                                     <img
                                         src={item.img}
                                         alt={item.title}
-                                        className="w-full h-64 object-cover rounded-t-2xl"
+                                        className="w-full h-48 md:h-64 object-cover rounded-t-2xl"
                                     />
 
                                     {/* Hover overlay */}
                                     {hoveredIndex === index && (
                                         <motion.div
-                                            className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-80 bg-red-100 border border-red-700 rounded-xl p-5 shadow-lg text-red-800 z-[100]"
+                                            className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-72 md:w-80 bg-red-100 border border-red-700 rounded-xl p-5 shadow-lg text-red-800 z-[100]"
                                             initial={{ opacity: 0, y: -10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3 }}
@@ -97,11 +107,15 @@ export function TimelineSection() {
                                     )}
 
                                     {/* Content */}
-                                    <div className="p-6 bg-white border-l-4 border-red-700">
-                                        <h2 className="text-xl font-bold text-red-800">{item.year}</h2>
-                                        <h3 className="text-lg font-semibold mt-1 text-red-700">{item.title}</h3>
-                                        <p className="text-gray-700 mt-1">{item.desc}</p>
-                                        <p className="mt-2 text-yellow-600 italic text-center">{item.quote}</p>
+                                    <div className="p-4 md:p-6 bg-white border-l-4 border-red-700">
+                                        <h2 className="text-lg md:text-xl font-bold text-red-800">{item.year}</h2>
+                                        <h3 className="text-md md:text-lg font-semibold mt-1 text-red-700">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-gray-700 mt-1 text-sm md:text-base">{item.desc}</p>
+                                        <p className="mt-2 text-yellow-600 italic text-center text-xs md:text-sm">
+                                            {item.quote}
+                                        </p>
                                     </div>
                                 </motion.div>
                             </div>
