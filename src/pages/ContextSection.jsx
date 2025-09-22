@@ -13,7 +13,7 @@ export function ContextSection() {
       title: "Đặc điểm",
       description:
         "Thông tin đa chiều, mạng xã hội phát triển, giới trẻ tiếp nhận nhiều trào lưu toàn cầu, dễ bị ảnh hưởng bởi tin giả.",
-      bg: "bg-gray-800",
+      bg: "bg-yellow-800",
     },
     {
       icon: <ExclamationTriangleIcon className="w-8 h-8 text-beige" />,
